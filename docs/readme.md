@@ -35,7 +35,7 @@ The system is built around **nodes** (memory units) connected via directed relat
     "notes": "Important concept, needs follow-up"
   }
 }
-
+```
 
 📂 Planned Documentation Folders
 
