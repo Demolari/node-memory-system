@@ -1,109 +1,85 @@
-# Node Memory System: Node Structure and Behavior
+# Node Overview
 
-## Overview
-A high-level explanation of what a "node" is in the context of this memory system.  
-(Ex. A node is a container for a memory fragment, concept, or unit of information...)
+The Node Memory System stores all knowledge and context in the form of interconnected nodes. Each node represents a distinct unit of information, metadata, or control logic. Nodes can be linked together to form a memory graph that can be queried, traversed, and dynamically updated.
 
-## Node Types
-- **Memory nodes** – store episodic or factual memory
-- **Tag nodes** – link to concepts, emotions, or categories
-- **System nodes** – used for structural/meta data
+
+---
 
 ## Node Structure
-What are the essential components of a node?
-- ID or unique identifier
-- Timestamp / creation date
-- Data payload (text, embeddings, etc.)
-- Links to other nodes (inbound / outbound)
-- Tags or metadata
 
-## Link Behavior
-How nodes are connected to each other:
-- Directed vs bidirectional links
-- Link weight or priority (if used)
-- Example: Memory node ↔ Concept tag
+Every node contains the following properties:
 
-## Storage Format
-Explain how a node might be stored on disk:
-- Human-readable text (e.g., JSON, Markdown)
-- Embedding vector storage (if used)
-- File naming convention (e.g., node_0001.json)
+ID – A unique identifier (hash, UUID, or custom string).
 
-## Access and Retrieval
-- How nodes are found
-- How link traversal works
-- Simple search vs RAG-assisted lookup
+Type – The node’s category (see below).
 
-## Editing and Mutation
-- Can nodes be edited after creation?
-- Versioning or historical snapshots
-- Node “aging” or decay if you implement that
+Content – The core data or meaning held by the node.
 
-## Example Node (Markdown or JSON snippet)
+Tags – An optional list of semantic labels for classification.
+
+Links – References to other related nodes (with optional relationship types).
+
+Meta – Optional additional fields (timestamps, source, confidence, etc.).
+
+
+
+---
+
+## Node Types
+
+1. data
+
+Represents a concrete piece of information, such as a fact, event, concept, or memory. These form the bulk of the knowledge base.
+
+> Example:
+Type: data
+Content: "Cats are often crepuscular animals."
+Tags: [biology, animal_behavior]
+Links: [#cat, #circadian]
+
+
+
+2. tag
+
+A node used as a semantic label or classification keyword. Tags help cluster and retrieve related nodes through shared labels.
+
+> Example:
+Type: tag
+Content: psychology
+
+
+
+3. control
+
+Encodes structural or behavioral logic — such as priorities, constraints, triggers, rules, or memory policies.
+
+> Example:
+Type: control
+Content: "Prune memory nodes older than 30 days with no links."
+Tags: [decay_policy]
+
+
+
+
+---
+
+Example Node
 ```json
 {
-  "id": "node_0001",
-  "type": "memory",
-  "created": "2025-05-27T12:00:00Z",
-  "data": "I had an idea about node linking while walking.",
-  "tags": ["idea", "nodes", "walk"],
-  "links": ["node_0002", "tag_idea_generation"]
+  "id": "n-21382",
+  "type": "data",
+  "content": "Lavi prefers to use dual swords.",
+  "tags": ["character_trait", "combat"],
+  "links": ["n-19873", "n-22113"],
+  "meta": {
+    "source": "user_input",
+    "timestamp": "2025-04-13T18:24:00Z"
+  }
 }
 ```
 
 ---
 
-Future Extensions
+Summary
 
-(placeholder for later):
-
-Node compression?
-
-Visualization tools?
-
-Import/export?
-
----
-
-# Node Graph Test Model
-```json
-{
-  "nodes": [
-    {
-      "id": "n1",
-      "type": "memory",
-      "title": "Concept: Node-Based Memory",
-      "content": "Idea for a memory system using connected nodes with relationships.",
-      "tags": ["architecture", "memory"]
-    },
-    {
-      "id": "n2",
-      "type": "tag",
-      "title": "architecture"
-    },
-    {
-      "id": "n3",
-      "type": "tag",
-      "title": "memory"
-    },
-    {
-      "id": "n4",
-      "type": "system",
-      "title": "RAG Integration",
-      "content": "Use Retrieval-Augmented Generation for node access and expansion."
-    },
-    {
-      "id": "n5",
-      "type": "memory",
-      "title": "Memory Token Cost Concern",
-      "content": "Idea about exporting chat to reduce token consumption."
-    }
-  ],
-  "edges": [
-    { "from": "n1", "to": "n2", "type": "has_tag" },
-    { "from": "n1", "to": "n3", "type": "has_tag" },
-    { "from": "n1", "to": "n4", "type": "related" },
-    { "from": "n1", "to": "n5", "type": "expanded_by" }
-  ]
-}
-```
+By combining data, tag, and control nodes, the memory system becomes a flexible, interpretable graph of concepts and logic. This model supports advanced reasoning and context recall — especially useful in systems requiring long-term memory, adaptive behavior, or human-aligned knowledge processing.
