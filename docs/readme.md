@@ -1,74 +1,79 @@
-# Node Memory System – Detailed Documentation
+# Node Memory System
 
-This document provides a deeper technical overview of the **Node Memory System** for LLMs (Large Language Models), compared to the main `README.md`.
-
----
-
-## 📌 Data Structure
-
-The system is built around **nodes** (memory units) connected via directed relations. Each node can include:
-
-- `id`: unique identifier
-- `tags`: thematic keywords
-- `content`: main content (text, thoughts, data)
-- `links`: connections to other nodes (`id`, `relation`, `confidence`, etc.)
-- `meta`: additional info (timestamp, source, model, etc.)
-
-### Example Node (JSON):
-
-```json
-{
-  "id": "node-001",
-  "tags": ["RAG", "LLM", "memory"],
-  "content": "Nodes can be used to map the thoughts of LLMs over a long timeline.",
-  "links": [
-    {
-      "target": "node-002",
-      "relation": "inspired_by",
-      "confidence": 0.75
-    }
-  ],
-  "meta": {
-    "created": "2025-05-28T12:00:00Z",
-    "model": "GPT-4.5",
-    "source": "chat",
-    "notes": "Important concept, needs follow-up"
-  }
-}
-```
-
-📂 Planned Documentation Folders
-
-Folder	Description
-
-docs/	Main project documentation
-memory/	Example memory snapshots (JSON)
-examples/	Usage examples, test scenarios, demos
-tools/	Helper tools/scripts for memory management
-spec/	Formal data format and API specifications
-
-
+**Status**: Conceptual phase  
+**Type**: Documentation & Design  
+**Author**: [Demolari](https://github.com/Demolari)
 
 ---
 
-🔧 Development Notes / To-Do
+## 📌 Overview
 
-[ ] Node search and retrieval strategy (embeddings + RAG?)
+The **Node Memory System** is an experimental idea for building a long-term memory structure for large language models (LLMs).  
+Instead of storing plain text or embeddings in isolation, the system organizes information in a **graph of nodes**, where each node represents a specific memory unit, tag, or control structure.
 
-[ ] Tagging system and importance weighting
-
-[ ] Integration with external sources (chat, files, APIs)
-
-[ ] Memory versioning system
-
-[ ] Node compression / merge strategy
-
-[ ] Fact vs. hallucination marking
-
-[ ] Reference implementation (Python / JavaScript?)
-
-
+This graph-based memory is designed to enhance retrieval, relevance, and the ability to track long-term context over time — potentially hybridizing with techniques like **RAG** (Retrieval-Augmented Generation).
 
 ---
 
-Note: This document will evolve as the project progresses.
+## 🧠 Core Concepts
+
+### Node Types
+
+- **Data Node**  
+  Stores knowledge, facts, experiences, or contextual information.
+
+- **Tag Node**  
+  Represents concepts, topics, people, locations, timelines, etc.  
+  Used to categorize or cluster related Data Nodes.
+
+- **Control Node**  
+  Meta-level structure for navigation, querying, or managing memory flow.  
+  For example: conversation logs, session grouping, timeline branches.
+
+### Relationships
+
+Nodes are connected using **graph-like edges** which define the nature of their relation:
+- Similarity
+- Causality
+- Tagging
+- Temporal links
+- Contextual dependency
+
+This allows flexible traversal of memory depending on query goals.
+
+---
+
+## 📂 Project Structure
+
+docs/ 
+├── README.md        ← This file 
+├── nodes.md         ← Description of node types, structure and metadata 
+├── usage.md         ← Ideas for use cases and potential implementation 
+├── vision.md        ← Long-term goals and inspiration
+
+> ✅ Additional docs will be added as the project evolves.
+
+---
+
+## 🚫 No Executable Code Yet
+
+This repository currently contains **design documentation only**.  
+There are **no runnable files or Python scripts**, and no installation steps required.
+
+If you’re here for code, you’re early — but welcome! Feel free to follow or contribute ideas.
+
+---
+
+## 📝 License
+
+This project **does not currently have a license**.  
+That means all rights are reserved to the author.
+
+If you'd like to use or adapt part of this work, please open an issue or contact me directly.
+
+---
+
+## 🙋 Contact
+
+Feel free to create an issue with ideas, questions, or suggestions.  
+You can also reach out via GitHub: [Demolari](https://github.com/Demolari)
