@@ -44,13 +44,10 @@ This allows flexible traversal of memory depending on query goals.
 ---
 
 ## 📂 Project Structure
-```text
-docs/ 
-├── README.md        ← This file 
-├── nodes.md         ← Description of node types, structure and metadata 
-├── usage.md         ← Ideas for use cases and potential implementation 
-├── vision.md        ← Long-term goals and inspiration
-```
+
+- [`docs/README.md`](docs/README.md) – This file
+- [`docs/nodes.md`](docs/nodes.md) – Description of node types, structure, and metadata
+- [`docs/architecture.md`](docs/architecture.md) – Internal structure of the system and graph layout
 
 > ✅ Additional docs will be added as the project evolves.
 
