@@ -1,4 +1,4 @@
-# Node Overview
+# Node Memory Overview
 
 The Node Memory System stores all knowledge and context in the form of interconnected nodes. Each node represents a distinct unit of information, metadata, or control logic. Nodes can be linked together to form a memory graph that can be queried, traversed, and dynamically updated.
 
