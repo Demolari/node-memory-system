@@ -1,0 +1,6 @@
+{
+  "memory": ["storage", "retention", "brain"],
+  "ai": ["artificialintelligence", "machinelearning", "neuralnetworks"],
+  "user": ["person", "individual", "human"],
+  "conversation": ["dialogue", "chat", "discussion"]
+}
