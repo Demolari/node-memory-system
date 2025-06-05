@@ -1,73 +1,48 @@
 import os
 import json
-import re
+from tools.synonym_base import normalize_tag
+from tools.id_logger import log_id_event
 
-# Maksymalna liczba tagów na node
 MAX_TAGS = 5
 
-# Ścieżki do plików
-BASE_DIR = os.path.dirname(__file__)
-TAG_DB_FILE = os.path.join(BASE_DIR, "tag_database.json")
-SYNONYM_FILE = os.path.join(BASE_DIR, "synonyms.json")
+class TagManager:
+    def __init__(self, tag_db_path):
+        self.tag_db_path = tag_db_path
+        self.tags = self.load_tags()
 
-# Wczytaj bazę synonimów
-try:
-    with open(SYNONYM_FILE, "r", encoding="utf-8") as f:
-        synonym_dict = json.load(f)
-except FileNotFoundError:
-    synonym_dict = {}
+    def load_tags(self):
+        if os.path.exists(self.tag_db_path):
+            with open(self.tag_db_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        return {}
 
-# Wczytaj bazę tagów
-try:
-    with open(TAG_DB_FILE, "r", encoding="utf-8") as f:
-        tag_db = set(json.load(f))
-except FileNotFoundError:
-    tag_db = set()
+    def save_tags(self):
+        with open(self.tag_db_path, 'w', encoding='utf-8') as f:
+            json.dump(self.tags, f, indent=2)
 
+    def validate_tag(self, tag):
+        tag = normalize_tag(tag)
+        return tag if tag else None
 
-def normalize_tag(tag):
-    """Zwraca znormalizowaną wersję tagu (bazując na bazie synonimów)"""
-    tag = tag.lower().strip()
-    for canonical, synonyms in synonym_dict.items():
-        if tag == canonical or tag in synonyms:
-            return canonical
-    return tag
+    def add_tags_to_node(self, node_id, proposed_tags):
+        added_tags = []
 
+        for tag in proposed_tags:
+            if len(added_tags) >= MAX_TAGS:
+                break
 
-def is_valid_tag(tag):
-    """Waliduje tag: musi być jednym słowem, bez znaków specjalnych"""
-    return re.match(r"^[a-z0-9_]+$", tag) is not None
+            valid_tag = self.validate_tag(tag)
+            if valid_tag and valid_tag not in added_tags:
+                added_tags.append(valid_tag)
+                if valid_tag not in self.tags:
+                    self.tags[valid_tag] = []
+                if node_id not in self.tags[valid_tag]:
+                    self.tags[valid_tag].append(node_id)
 
+        self.save_tags()
+        self.log_tagging(node_id, added_tags)
+        return added_tags
 
-def process_tags(input_tags):
-    """Oczyszcza, normalizuje, filtruje i ogranicza liczbę tagów"""
-    clean_tags = []
-    seen = set()
-
-    for tag in input_tags:
-        norm = normalize_tag(tag)
-        if is_valid_tag(norm) and norm not in seen:
-            clean_tags.append(norm)
-            seen.add(norm)
-        if len(clean_tags) >= MAX_TAGS:
-            break
-
-    return clean_tags
-
-
-def add_tags_to_db(tags):
-    """Dodaje tagi do lokalnej bazy i zapisuje ją"""
-    new_tags = set(tags) - tag_db
-    if new_tags:
-        tag_db.update(new_tags)
-        with open(TAG_DB_FILE, "w", encoding="utf-8") as f:
-            json.dump(sorted(tag_db), f, indent=2)
-
-
-# Przykładowe użycie
-if __name__ == "__main__":
-    raw_tags = ["AI", "machinelearning", "Brain", "storage", "weird@tag", "user"]
-    final_tags = process_tags(raw_tags)
-    add_tags_to_db(final_tags)
-
-    print("Przetworzone tagi:", final_tags)
+    def log_tagging(self, node_id, tags):
+        message = f"Tagged node {node_id} with: {', '.join(tags)}"
+        log_id_event(node_id, message)
