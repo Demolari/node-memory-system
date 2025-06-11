@@ -2,6 +2,7 @@ import os
 import json
 from tools.synonym_base import normalize_tag
 from tools.id_logger import log_id_event
+from tools.tag_suggester_utils import suggest_tags, normalize_tag
 
 MAX_TAGS = 5
 
@@ -46,3 +47,8 @@ class TagManager:
     def log_tagging(self, node_id, tags):
         message = f"Tagged node {node_id} with: {', '.join(tags)}"
         log_id_event(node_id, message)
+
+# Suggests tags using tag_suggester_utils for now, later to use LLM and adds them to the node
+    def suggest_and_add_tags(self, node_id, text):
+    suggested = suggest_tags(text)
+    return self.add_tags_to_node(node_id, suggested)
