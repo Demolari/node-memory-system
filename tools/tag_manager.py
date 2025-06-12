@@ -48,6 +48,10 @@ class TagManager:
         message = f"Tagged node {node_id} with: {', '.join(tags)}"
         log_id_event(node_id, message)
 
+    def get_nodes_by_tag(self, tag_name):
+        tag_name = normalize_tag(tag_name)
+        return self.tags.get(tag_name, [])
+
 # Suggests tags using tag_suggester_utils for now, later to use LLM and adds them to the node
     def suggest_and_add_tags(self, node_id, text):
     suggested = suggest_tags(text)
