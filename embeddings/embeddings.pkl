@@ -1,0 +1,8 @@
+[
+    {
+        "id": "node_001",
+        "text": "Użytkownik pisze swoje własne opowiadanie pod nazwą "Demon Core".",
+        "embedding": <tensor>  # embedding wygenerowany modelem
+    },
+    ...
+]
