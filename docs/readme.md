@@ -71,6 +71,14 @@ If you'd like to use or adapt part of this work, please open an issue or contact
 
 ---
 
+## Requirements
+
+Make sure to install all needed libraries
+```bash
+pip install -r requirements.txt
+```
+---
+
 ## 🙋 Contact
 
 Feel free to create an issue with ideas, questions, or suggestions.  
