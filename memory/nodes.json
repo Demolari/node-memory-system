@@ -1,0 +1,5 @@
+[
+  { "id": "node1", "text": "LLM can generate text based on context." },
+  { "id": "node2", "text": "Node memory graphs are useful for representing user knowledge." },
+  { "id": "node3", "text": "RAG combines retrieval and generation for better performance." }
+]
