@@ -1,1 +1,1 @@
-pip install sentence-transformers
+sentence-transformers
