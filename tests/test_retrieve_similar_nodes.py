@@ -1,6 +1,5 @@
 import unittest
 from tools import retrieve_similar_nodes
-from tools.retrieve_similar_nodes import retrieve_similar_nodes
 
 class TestRetriever(unittest.TestCase):
     def test_retrieve_returns_list(self):
