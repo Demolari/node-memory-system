@@ -18,7 +18,6 @@ class TestRetriever(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 
-#poprawić to co tu najebałem
 
 class TestRetrieveSimilarNodesMock(unittest.TestCase):
     def setUp(self):
