@@ -54,5 +54,5 @@ class TagManager:
 
 # Suggests tags using tag_suggester_utils for now, later to use LLM and adds them to the node
     def suggest_and_add_tags(self, node_id, text):
-    suggested = suggest_tags(text)
-    return self.add_tags_to_node(node_id, suggested)
+        suggested = suggest_tags(text)
+        return self.add_tags_to_node(node_id, suggested)
