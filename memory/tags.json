@@ -1,0 +1,5 @@
+{
+  "llm": ["node1"],
+  "memory": ["node2"],
+  "rag": ["node3"]
+}
