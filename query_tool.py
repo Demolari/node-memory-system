@@ -1,4 +1,4 @@
-from memory.tag_manager import TagManager
+from tools.tag_manager import TagManager
 
 # Ścieżka do bazy tagów
 TAG_DB_PATH = "memory/tags.json"  # dostosuj jeśli masz inną lokalizację
