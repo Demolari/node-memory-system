@@ -21,6 +21,10 @@ def log_uuid(uuid_obj, extra_note=""):
     with open(LOG_PATH, "a") as log_file:
         log_file.write(entry)
 
+def log_id_event(node_id, message):
+    """Wrapper dla log_uuid do logowania eventów węzłów."""
+    log_uuid(node_id, message)
+
 # Przykład użycia:
 if __name__ == "__main__":
     new_uuid = generate_uuid()
